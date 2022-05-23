@@ -17,6 +17,20 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        backgroundColor: Colors.white,
+        child: Column(
+          children: [
+            SizedBox(height: 25,),
+            Container(
+              height: 200,
+              width: 500,
+              color: Colors.brown,
+            ),
+
+          ],
+        ),
+      ),
         // appBar: AppBar(
         //   backgroundColor: kMyBlueColor,
         //   title: const Text('Lotto',
@@ -43,17 +57,25 @@ class _HomeState extends State<Home> {
           builder: (controller) {
             return SafeArea(
               child: Container(
-                color: kMyBlueColor,
+                color: Colors.white,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(height: 30,),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10),
-                          child: Text('Choose 6 numbers',
-                          style: kFontSize,),
-                        ),
-                        SizedBox(height: 200,),
+                        Text('Lotto',
+                          style: TextStyle(
+                            fontFamily: 'Pacifico',
+                            fontSize: 50,
+                            fontWeight: FontWeight.w400
+                          ),),
+                        SizedBox(height: 30,),
+                        Text('Choose 6 numbers',
+                        style: TextStyle(
+                            fontFamily: 'JosefinSans',
+                            fontSize: 40,
+                            fontWeight: FontWeight.w700
+                        ),),
+                        SizedBox(height: 50,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -207,8 +229,46 @@ class _HomeState extends State<Home> {
                                 ),
                               ),
                             ),
-
                           ],
+                        ),
+                        SizedBox(
+                          height: 40,
+                        ),
+                        SizedBox(
+                          height: 50,
+                          width: 150,
+                          child: ElevatedButton(
+                            onPressed: (){},
+                            child: Text('Play'),
+                            style: ElevatedButton.styleFrom(
+                              primary: kMyBlueColor,
+                              textStyle: TextStyle(
+                                fontFamily: 'Pacifico',
+                                fontWeight: FontWeight.w400,
+                                fontSize: 25
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30)
+                              )
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 40,
+                        ),
+                        Container(
+                          height: 80,
+                          width: 300,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                              color: kMyBlueColor,
+                              blurRadius: 7,
+                              offset: Offset(0,3)
+                              ),]
+                          )
                         )
                         // Wrap(
                         //   runSpacing: 10,
