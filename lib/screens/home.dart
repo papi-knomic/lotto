@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lotto/controller/lotto_controller.dart';
-import 'package:lotto/screens/user_pop.dart';
 
-import '../constant.dart';
+import '../utils/constant.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -17,20 +15,21 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        backgroundColor: Colors.white,
-        child: Column(
-          children: [
-            SizedBox(height: 25,),
-            Container(
-              height: 200,
-              width: 500,
-              color: Colors.brown,
-            ),
-
-          ],
+        drawer: Drawer(
+          backgroundColor: Colors.white,
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 25,
+              ),
+              Container(
+                height: 200,
+                width: 500,
+                color: Colors.brown,
+              ),
+            ],
+          ),
         ),
-      ),
         // appBar: AppBar(
         //   backgroundColor: kMyBlueColor,
         //   title: const Text('Lotto',
@@ -59,225 +58,95 @@ class _HomeState extends State<Home> {
               child: Container(
                 color: Colors.white,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(height: 30,),
-                        Text('Lotto',
-                          style: TextStyle(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      const Text(
+                        'Lotto',
+                        style: TextStyle(
                             fontFamily: 'Pacifico',
                             fontSize: 50,
-                            fontWeight: FontWeight.w400
-                          ),),
-                        SizedBox(height: 30,),
-                        Text('Choose 6 numbers',
+                            fontWeight: FontWeight.w400),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      const Text(
+                        'Choose 6 numbers',
                         style: TextStyle(
                             fontFamily: 'JosefinSans',
                             fontSize: 40,
-                            fontWeight: FontWeight.w700
-                        ),),
-                        SizedBox(height: 50,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            fontWeight: FontWeight.w700),
+                      ),
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      GetBuilder<LottoController>(builder: (controller) {
+                        return Wrap(
+                          spacing: 10,
                           children: [
-                            Container(
-                              width: 50,
-                              height: 70,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(20),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: kMyBlueColor,
-                                    blurRadius: 7,
-                                    offset: Offset(0,3)
-                                  )
-                                ]
+                            for (int number in controller.lottoNumbers)
+                              Container(
+                                width: 50,
+                                height: 70,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(20),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                          color: kMyBlueColor,
+                                          blurRadius: 7,
+                                          offset: Offset(0, 3))
+                                    ]),
+                                child: Center(child: Text(number.toString())),
                               ),
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 10, top: 10),
-                                child: TextField(
-                                  keyboardType: TextInputType.number,
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                  ),
-                                  style: kFontSize,
-                                  ),
-                                ),
-                              ),
-                            Container(
-                              width: 50,
-                              height: 70,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(20),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: kMyBlueColor,
-                                        blurRadius: 7,
-                                        offset: Offset(0,3)
-                                    )
-                                  ]
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 10, top: 10),
-                                child: TextField(
-                                  keyboardType: TextInputType.number,
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                  ),
-                                  style: kFontSize,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              width: 50,
-                              height: 70,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(20),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: kMyBlueColor,
-                                        blurRadius: 7,
-                                        offset: Offset(0,3)
-                                    )
-                                  ]
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 10, top: 10),
-                                child: TextField(
-                                  keyboardType: TextInputType.number,
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                  ),
-                                  style: kFontSize,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              width: 50,
-                              height: 70,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(20),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: kMyBlueColor,
-                                        blurRadius: 7,
-                                        offset: Offset(0,3)
-                                    )
-                                  ]
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 10, top: 10),
-                                child: TextField(
-                                  keyboardType: TextInputType.number,
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                  ),
-                                  style: kFontSize,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              width: 50,
-                              height: 70,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(20),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: kMyBlueColor,
-                                        blurRadius: 7,
-                                        offset: Offset(0,3)
-                                    )
-                                  ]
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 10, top: 10),
-                                child: TextField(
-                                  keyboardType: TextInputType.number,
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                  ),
-                                  style: kFontSize,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              width: 50,
-                              height: 70,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(20),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: kMyBlueColor,
-                                        blurRadius: 7,
-                                        offset: Offset(0,3)
-                                    )
-                                  ]
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 10, top: 10),
-                                child: TextField(
-                                  keyboardType: TextInputType.number,
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                  ),
-                                  style: kFontSize,
-                                ),
-                              ),
-                            ),
                           ],
-                        ),
-                        SizedBox(
-                          height: 40,
-                        ),
-                        SizedBox(
-                          height: 50,
-                          width: 150,
-                          child: ElevatedButton(
-                            onPressed: (){},
-                            child: Text('Play'),
-                            style: ElevatedButton.styleFrom(
+                        );
+                      }),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      SizedBox(
+                        height: 50,
+                        width: 150,
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          child: const Text('Play'),
+                          style: ElevatedButton.styleFrom(
                               primary: kMyBlueColor,
-                              textStyle: TextStyle(
-                                fontFamily: 'Pacifico',
-                                fontWeight: FontWeight.w400,
-                                fontSize: 25
-                              ),
+                              textStyle: const TextStyle(
+                                  fontFamily: 'Pacifico',
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 25),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30)
-                              )
-                            ),
-                          ),
+                                  borderRadius: BorderRadius.circular(30))),
                         ),
-                        SizedBox(
-                          height: 40,
-                        ),
-                        Container(
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      Container(
                           height: 80,
                           width: 300,
                           decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                              color: kMyBlueColor,
-                              blurRadius: 7,
-                              offset: Offset(0,3)
-                              ),]
-                          )
-                        )
-                        // Wrap(
-                        //   runSpacing: 10,
-                        //   children: [
-                        //     for (int number in controller.lottoNumbers)
-                        //       Chip(label: Text(number.toString())),
-                        //   ],
-                        // ),
-                      ]),
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: const [
+                                BoxShadow(
+                                    color: kMyBlueColor,
+                                    blurRadius: 7,
+                                    offset: Offset(0, 3)),
+                              ]))
+                      // Wrap(
+                      //   runSpacing: 10,
+                      //   children: [
+                      //     for (int number in controller.lottoNumbers)
+                      //       Chip(label: Text(number.toString())),
+                      //   ],
+                      // ),
+                    ]),
               ),
             );
           },

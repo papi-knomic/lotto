@@ -9,11 +9,12 @@ class LottoRepo {
   Set<int> _lottoNumbers = Set<int>();
   Set<int> get lottoNumbers => _lottoNumbers;
   List<Set> lottoHistory = [];
+  
 
   void generateLottoNumbers() {
     _lottoNumbers.clear();
     while (_lottoNumbers.length < 6) {
-      _lottoNumbers.add(Random().nextInt(60));
+      _lottoNumbers.add(Random().nextInt(60) + 1);
     }
   }
 }

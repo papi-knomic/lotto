@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:lotto/constant.dart';
+import 'package:lotto/utils/constant.dart';
 import 'package:lotto/screens/home.dart';
 
 class SplashScreen extends StatefulWidget {

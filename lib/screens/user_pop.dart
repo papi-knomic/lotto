@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lotto/constant.dart';
+import 'package:lotto/utils/constant.dart';
 
 
 
