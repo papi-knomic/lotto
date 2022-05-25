@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:lotto/controller/lotto_controller.dart';
 
@@ -11,53 +13,36 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
+
 class _HomeState extends State<Home> {
+
+  final scrollController = ScrollController(initialScrollOffset: 0);
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        drawer: Drawer(
-          backgroundColor: Colors.white,
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 25,
-              ),
-              Container(
-                height: 200,
-                width: 500,
-                color: Colors.brown,
-              ),
-            ],
+    return SafeArea(
+      child: Scaffold(
+          drawer: Drawer(
+            backgroundColor: Colors.white,
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 25,
+                ),
+                Container(
+                  height: 200,
+                  width: 500,
+                  color: Colors.brown,
+                ),
+              ],
+            ),
           ),
-        ),
-        // appBar: AppBar(
-        //   backgroundColor: kMyBlueColor,
-        //   title: const Text('Lotto',
-        //   style: TextStyle(fontSize: 30),),
-        //   centerTitle: true,
-        //   actions: [
-        //     IconButton(onPressed: () {
-        //       showModalBottomSheet(
-        //           shape: RoundedRectangleBorder(
-        //             borderRadius: BorderRadius.only(
-        //               topLeft: Radius.circular(30), topRight: Radius.circular(30),
-        //             ),
-        //           ),
-        //           isScrollControlled: true,
-        //           context: context, builder: (context)
-        //       => UserBottomSheet());
-        //     },
-        //       icon: Icon(Icons.mode_edit),),
-        //     IconButton(onPressed: () {},
-        //       icon: Icon( Icons.history_outlined),),
-        //   ],
-        // ),
-        body: GetBuilder<LottoController>(
-          builder: (controller) {
-            return SafeArea(
-              child: Container(
-                color: Colors.white,
-                child: Column(
+          body: GetBuilder<LottoController>(
+            builder: (controller) {
+              return SingleChildScrollView(
+                child: Container(
+                  color: Colors.white,
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const SizedBox(
@@ -128,28 +113,60 @@ class _HomeState extends State<Home> {
                         height: 40,
                       ),
                       Container(
-                          height: 80,
-                          width: 300,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: const [
-                                BoxShadow(
-                                    color: kMyBlueColor,
-                                    blurRadius: 7,
-                                    offset: Offset(0, 3)),
-                              ]))
-                      // Wrap(
-                      //   runSpacing: 10,
-                      //   children: [
-                      //     for (int number in controller.lottoNumbers)
-                      //       Chip(label: Text(number.toString())),
-                      //   ],
-                      // ),
-                    ]),
-              ),
-            );
-          },
-        ));
+                        height: 80,
+                        width: 300,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: kMyBlueColor,
+                              blurRadius: 7,
+                              offset: Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 5, childAspectRatio: (1 / 1)),
+                        itemCount: 60,
+                        controller: scrollController,
+                        scrollDirection: Axis.vertical,
+                        physics: ScrollPhysics(),
+                        padding: EdgeInsets.all(20),
+                        shrinkWrap: true,
+                        itemBuilder: (BuildContext context, int index) {
+                          return GestureDetector(
+                              child: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Container(
+                                  height: 50,
+                                    width: 50,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(30),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: kMyBlueColor,
+                                      blurRadius: 7,
+                                      offset: Offset(0, 3),
+                                    ),
+                                  ],
+                                    ),
+                                    child: Center(child: Text(index.toString()))),
+                              ));
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          )),
+    );
   }
 }
