@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lotto/controller/lotto_controller.dart';
 import 'package:lotto/helper/dependencies.dart' as dep;
-import 'package:lotto/screens/home.dart';
+import 'package:lotto/screens/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +18,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
      Get.find<LottoController>().getLottoNumbers();
     return GetMaterialApp(
-      home: Home(),
+      home: SplashScreen(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
