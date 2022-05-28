@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:lotto/controller/lotto_controller.dart';
 
@@ -13,9 +11,7 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-
 class _HomeState extends State<Home> {
-
   final scrollController = ScrollController(initialScrollOffset: 0);
 
   @override
@@ -69,24 +65,71 @@ class _HomeState extends State<Home> {
                         height: 50,
                       ),
                       GetBuilder<LottoController>(builder: (controller) {
-                        return Wrap(
-                          spacing: 10,
+                        return Column(
                           children: [
-                            for (int number in controller.lottoNumbers)
-                              Container(
-                                width: 50,
-                                height: 70,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(20),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                          color: kMyBlueColor,
-                                          blurRadius: 7,
-                                          offset: Offset(0, 3))
-                                    ]),
-                                child: Center(child: Text(number.toString())),
-                              ),
+                            Wrap(
+                              spacing: 10,
+                              children: [
+                                for (int i = 0; i < 6; i++)
+                                  Container(
+                                    width: 50,
+                                    height: 70,
+                                    decoration: BoxDecoration(
+                                        color: controller.isPlayed
+                                            ? (controller.lottoNumbers.contains(
+                                                    controller.userNumbers
+                                                        .elementAt(i))
+                                                ? Colors.green
+                                                : Colors.red)
+                                            : Colors.white,
+                                        borderRadius: BorderRadius.circular(20),
+                                        boxShadow: const [
+                                          BoxShadow(
+                                              color: kMyBlueColor,
+                                              blurRadius: 7,
+                                              offset: Offset(0, 3))
+                                        ]),
+                                    child: Center(
+                                        child: Text(
+                                      controller.userNumbersLength > i
+                                          ? controller.userNumbers
+                                              .elementAt(i)
+                                              .toString()
+                                          : '',
+                                    )),
+                                  ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            controller.isPlayed
+                                ? Wrap(
+                                    spacing: 10,
+                                    children: [
+                                      for (int number
+                                          in controller.lottoNumbers)
+                                        Container(
+                                          width: 50,
+                                          height: 70,
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              boxShadow: const [
+                                                BoxShadow(
+                                                    color: kMyBlueColor,
+                                                    blurRadius: 7,
+                                                    offset: Offset(0, 3))
+                                              ]),
+                                          child: Center(
+                                              child: Text(
+                                            number.toString(),
+                                          )),
+                                        ),
+                                    ],
+                                  )
+                                : Container(),
                           ],
                         );
                       }),
@@ -97,7 +140,9 @@ class _HomeState extends State<Home> {
                         height: 50,
                         width: 150,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            controller.checkNumbers();
+                          },
                           child: const Text('Play'),
                           style: ElevatedButton.styleFrom(
                               primary: kMyBlueColor,
@@ -131,34 +176,48 @@ class _HomeState extends State<Home> {
                         height: 40,
                       ),
                       GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 5, childAspectRatio: (1 / 1)),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 5, childAspectRatio: (1 / 1)),
                         itemCount: 60,
                         controller: scrollController,
                         scrollDirection: Axis.vertical,
-                        physics: ScrollPhysics(),
-                        padding: EdgeInsets.all(20),
+                        physics: const ScrollPhysics(),
+                        padding: const EdgeInsets.all(20),
                         shrinkWrap: true,
                         itemBuilder: (BuildContext context, int index) {
+                          int newIndex = index + 1;
                           return GestureDetector(
                               child: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Container(
+                            padding: const EdgeInsets.all(10),
+                            child: GestureDetector(
+                              onTap: () {
+                                // add newIndex to userNumbers
+                                if (!controller.isPlayed) {
+                                  controller.addUserNumber(newIndex);
+                                }
+                              },
+                              child: Container(
                                   height: 50,
-                                    width: 50,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(30),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                      color: kMyBlueColor,
-                                      blurRadius: 7,
-                                      offset: Offset(0, 3),
-                                    ),
-                                  ],
-                                    ),
-                                    child: Center(child: Text(index.toString()))),
-                              ));
+                                  width: 50,
+                                  decoration: BoxDecoration(
+                                    color: controller.userNumbers
+                                            .contains(newIndex)
+                                        ? Colors.green
+                                        : Colors.white,
+                                    borderRadius: BorderRadius.circular(30),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        color: kMyBlueColor,
+                                        blurRadius: 7,
+                                        offset: Offset(0, 3),
+                                      ),
+                                    ],
+                                  ),
+                                  child:
+                                      Center(child: Text(newIndex.toString()))),
+                            ),
+                          ));
                         },
                       ),
                     ],
