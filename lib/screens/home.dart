@@ -141,9 +141,13 @@ class _HomeState extends State<Home> {
                         width: 150,
                         child: ElevatedButton(
                           onPressed: () {
-                            controller.checkNumbers();
+                            if (controller.isPlayed) {
+                              controller.getLottoNumbers();
+                            } else {
+                              controller.checkNumbers();
+                            }
                           },
-                          child: const Text('Play'),
+                          child: Text(controller.isPlayed ? 'Reset' : 'Play'),
                           style: ElevatedButton.styleFrom(
                               primary: kMyBlueColor,
                               textStyle: const TextStyle(
