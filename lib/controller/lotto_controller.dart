@@ -101,7 +101,6 @@ class LottoController extends GetxController {
   //get lottoHistory from lottoRepo
   void getLottoHistory() {
     _lottoHistory = lottoRepo.getLottoHistoryList();
-    print(_lottoHistory);
     update();
   }
 }

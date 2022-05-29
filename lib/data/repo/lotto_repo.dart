@@ -34,15 +34,16 @@ class LottoRepo {
     for (var element in lottoHistory) {
       lottoListHistory.add(LottoModel.fromJson(jsonDecode(element)));
     }
+    
     getHistoryLength();
     return lottoListHistory;
   }
 
   void addToLottoHistoryList(LottoModel lottoModel) {
+    List<String> lottoHistory = [];
     if (sharedPreferences.containsKey(AppConstants.LOTTO_HISTORY_LIST)) {
       lottoHistory =
           sharedPreferences.getStringList(AppConstants.LOTTO_HISTORY_LIST)!;
-      print(lottoHistory);
     }
     lottoHistory.add(jsonEncode(lottoModel.toJson()));
     getLottoHistoryList();
