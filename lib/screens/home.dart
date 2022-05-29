@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lotto/controller/lotto_controller.dart';
-
+import 'package:lotto/screens/dimensions/mobile_body.dart';
+import 'package:lotto/screens/dimensions/responsive_layout.dart';
 import '../utils/constant.dart';
+import 'dimensions/Desktop_body.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -12,8 +14,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final scrollController = ScrollController(initialScrollOffset: 0);
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -230,6 +230,10 @@ class _HomeState extends State<Home> {
               );
             },
           )),
+    );
+    return const ResponsiveLayout(
+      mobileBody: MobileBody(),
+      desktopBody: DesktopBody(),
     );
   }
 }
