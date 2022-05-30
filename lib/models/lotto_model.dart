@@ -9,6 +9,7 @@ class LottoModel {
     lottoNumbers = Set<int>.from(json['lottoNumbers']);
     userNumbers = Set<int>.from(json['userNumbers']);
     point = json['point'];
+    
   }
 
   Map<String, dynamic> toJson() => {
