@@ -1,6 +1,9 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:lotto/controller/lotto_controller.dart';
+import 'package:lotto/screens/edit_page.dart';
+import 'package:lotto/screens/history_page.dart';
 import 'package:lotto/utils/constant.dart';
 
 
@@ -13,27 +16,37 @@ class MobileBody extends StatefulWidget {
  final scrollController = ScrollController(initialScrollOffset: 0);
 
 class _MobileBodyState extends State<MobileBody> {
+
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+final padding = EdgeInsets.symmetric(horizontal: 20);
   @override
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
+        key: _scaffoldKey,
           drawer: Drawer(
-            backgroundColor: Colors.white,
-            child: Column(
+          child: Container(
+            child: ListView(
+              padding: padding,
               children: [
-                const SizedBox(
-                height: 25,
+                SizedBox(
+                  height: 40,
                 ),
-                Container(
-                  height: 200,
-                  width: 500,
-                  color: Colors.brown,
-                ),
-              ],
+               buildDrawerItems(
+                   text: 'Edit',
+                   icon: Icons.edit,
+                 onClicked: () {selectedItem(context, 0);},
+               ),
+            buildDrawerItems(
+              text: 'History',
+              icon: Icons.history_rounded,
+              onClicked: () {selectedItem(context, 1);},
+            ),],
             ),
           ),
+            ),
           body: GetBuilder<LottoController>(
             builder: (controller) {
               return Container(
@@ -44,12 +57,24 @@ class _MobileBodyState extends State<MobileBody> {
                     const SizedBox(
                       height: 5,
                     ),
-                    const Text(
-                      'Lotto',
-                      style: TextStyle(
-                          fontFamily: 'Pacifico',
-                          fontSize: 50,
-                          fontWeight: FontWeight.w400),
+                    Row(
+                      children: [
+                        IconButton(
+                            onPressed: () {
+                              _scaffoldKey.currentState?.openDrawer();
+                            },
+                            icon: Icon(Icons.menu),iconSize: 40,),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 85),
+                          child: const Text(
+                            'Lotto',
+                            style: TextStyle(
+                                fontFamily: 'Pacifico',
+                                fontSize: 50,
+                                fontWeight: FontWeight.w400),
+                          ),
+                        ),
+                      ],
                     ),
                     const SizedBox(
                       height: 2,
@@ -151,9 +176,13 @@ class _MobileBodyState extends State<MobileBody> {
                       width: 150,
                       child: ElevatedButton(
                         onPressed: () {
-                          controller.checkNumbers();
+                          if (controller.isPlayed) {
+                            controller.getLottoNumbers();
+                          } else {
+                            controller.checkNumbers();
+                          }
                         },
-                        child: const Text('Play'),
+                        child: Text(controller.isPlayed ? 'Reset' : 'Play'),
                         style: ElevatedButton.styleFrom(
                             primary: kMyBlueColor,
                             textStyle: const TextStyle(
@@ -227,5 +256,34 @@ class _MobileBodyState extends State<MobileBody> {
             },
           )),
     );
+  }
+  Widget buildDrawerItems({
+    required String text,
+    required IconData icon,
+    VoidCallback? onClicked,
+  }){
+    final color = Colors.black;
+    final hoverColors = Colors.black45;
+    return ListTile(
+      leading: Icon(icon,color: color,),
+      title: Text(text, style: TextStyle(color: color),),
+      hoverColor: hoverColors,
+      onTap: onClicked,
+    );
+  }
+
+  void selectedItem(BuildContext context, int i) {
+    switch (i) {
+      case 0:
+      Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => EditPage()));
+      break;
+    }
+    switch (i) {
+      case 1:
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => HistoryPage()));
+        break;
+    }
   }
 }
