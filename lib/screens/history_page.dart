@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lotto/screens/lotto_drawer.dart';
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({Key? key}) : super(key: key);
@@ -10,6 +11,13 @@ class HistoryPage extends StatefulWidget {
 class _HistoryPageState extends State<HistoryPage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      drawer: LottoDrawer(),
+      body: ListView.builder(
+          itemCount: 5,
+          itemBuilder: (BuildContext context, int index) {
+            return Card();
+          }),
+    );
   }
 }
