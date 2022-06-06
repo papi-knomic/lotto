@@ -12,11 +12,13 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  splashScreenTimer(){
-    Timer(Duration(seconds: 3), () async{
-     Navigator.of(context).push(MaterialPageRoute(builder: (context)=> const Home()));
+  splashScreenTimer() {
+    Timer(Duration(seconds: 4), () async {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => const Home()));
     });
   }
+
   @override
   void initState() {
     splashScreenTimer();
@@ -29,18 +31,15 @@ class _SplashScreenState extends State<SplashScreen> {
       child: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Colors.white,
-              kMyBlueColor,
-            ]
-          ),
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Colors.white,
+                kMyBlueColor,
+              ]),
         ),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 60),
-          child: Center(
-            child: SizedBox(
+        child: Center(
+          child: SizedBox(
             width: 250.0,
             height: 100,
             child: DefaultTextStyle(
@@ -49,17 +48,14 @@ class _SplashScreenState extends State<SplashScreen> {
                 fontFamily: 'Pacifico',
                 color: Colors.black,
               ),
-              child: AnimatedTextKit(
-                  animatedTexts: [
-                    TyperAnimatedText('LOTTO',
-                    speed: Duration(milliseconds: 500)),
-                  ]
-            //       onTap: () {
-            // print("Tap Event");
-            // },
+              child: AnimatedTextKit(animatedTexts: [
+                TyperAnimatedText('LOTTO', speed: Duration(milliseconds: 700)),
+              ]
+                  //       onTap: () {
+                  // print("Tap Event");
+                  // },
+                  ),
             ),
-      ),
-    ),
           ),
         ),
       ),
