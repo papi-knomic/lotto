@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
      Get.find<LottoController>().getLottoNumbers();
+     Get.find<LottoController>().getLottoHistory();
     return GetMaterialApp(
       home: SplashScreen(),
       debugShowCheckedModeBanner: false,

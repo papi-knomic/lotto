@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lotto/data/repo/lotto_repo.dart';
 
+import '../models/lotto_model.dart';
+
 class LottoController extends GetxController {
   final LottoRepo lottoRepo;
 
@@ -17,12 +19,25 @@ class LottoController extends GetxController {
   bool get isPlayed => _isPlayed;
   //length for user numbers
   int get userNumbersLength => _userNumbers.length;
+  //get lotto history
+  List<LottoModel> _lottoHistory = [];
+  List<LottoModel> get lottoHistory => _lottoHistory;
+
+  //get lotto history length
+  int _lottoHistoryLength = 0;
+  int get lottoHistoryLength => _lottoHistoryLength;
+
+  //get user point
+  int _userPoint = 0;
+  int get userPoint => _userPoint;
 
   void getLottoNumbers() {
     lottoRepo.generateLottoNumbers();
     _lottoNumbers = lottoRepo.lottoNumbers;
     _isPlayed = false;
     _userNumbers.clear();
+    getUserPoint();
+    getLottoHistoryLength();
     update();
   }
 
@@ -33,7 +48,6 @@ class LottoController extends GetxController {
       if (_userNumbers.length < 6) {
         _userNumbers.add(number);
         update();
-        print(userNumbers);
       } else {
         Get.snackbar('Error', 'You can only choose 6 numbers',
             snackPosition: SnackPosition.BOTTOM,
@@ -51,7 +65,6 @@ class LottoController extends GetxController {
 
   void removeUserNumber(int number) {
     _userNumbers.remove(number);
-    print(userNumbers);
     update();
   }
 
@@ -65,6 +78,11 @@ class LottoController extends GetxController {
         }
       }
       _isPlayed = true;
+      LottoModel lottoModel = LottoModel(
+          lottoNumbers: lottoNumbers, userNumbers: userNumbers, point: point);
+      saveLottoModel(lottoModel);
+      getUserPoint();
+      getLottoHistoryLength();
       update();
       Get.snackbar('You got $point points', '',
           snackPosition: SnackPosition.BOTTOM,
@@ -84,5 +102,29 @@ class LottoController extends GetxController {
           borderColor: Colors.red,
           borderWidth: 2);
     }
+  }
+
+  //save lottoModel to lottoHistory
+  void saveLottoModel(LottoModel lottoModel) {
+    lottoRepo.addToLottoHistoryList(lottoModel);
+    getLottoHistory();
+  }
+
+  //get lottoHistory from lottoRepo
+  void getLottoHistory() {
+    _lottoHistory = lottoRepo.getLottoHistoryList();
+    update();
+  }
+
+  //get lottoHistory length
+  void getLottoHistoryLength() {
+    _lottoHistoryLength = lottoRepo.getHistoryLength();
+    update();
+  }
+
+  //get user point
+  void getUserPoint() {
+    _userPoint = lottoRepo.getUserPoints();
+    update();
   }
 }
