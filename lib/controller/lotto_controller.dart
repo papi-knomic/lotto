@@ -23,11 +23,21 @@ class LottoController extends GetxController {
   List<LottoModel> _lottoHistory = [];
   List<LottoModel> get lottoHistory => _lottoHistory;
 
+  //get lotto history length
+  int _lottoHistoryLength = 0;
+  int get lottoHistoryLength => _lottoHistoryLength;
+
+  //get user point
+  int _userPoint = 0;
+  int get userPoint => _userPoint;
+
   void getLottoNumbers() {
     lottoRepo.generateLottoNumbers();
     _lottoNumbers = lottoRepo.lottoNumbers;
     _isPlayed = false;
     _userNumbers.clear();
+    getUserPoint();
+    getLottoHistoryLength();
     update();
   }
 
@@ -71,6 +81,8 @@ class LottoController extends GetxController {
       LottoModel lottoModel = LottoModel(
           lottoNumbers: lottoNumbers, userNumbers: userNumbers, point: point);
       saveLottoModel(lottoModel);
+      getUserPoint();
+      getLottoHistoryLength();
       update();
       Get.snackbar('You got $point points', '',
           snackPosition: SnackPosition.BOTTOM,
@@ -101,6 +113,18 @@ class LottoController extends GetxController {
   //get lottoHistory from lottoRepo
   void getLottoHistory() {
     _lottoHistory = lottoRepo.getLottoHistoryList();
+    update();
+  }
+
+  //get lottoHistory length
+  void getLottoHistoryLength() {
+    _lottoHistoryLength = lottoRepo.getHistoryLength();
+    update();
+  }
+
+  //get user point
+  void getUserPoint() {
+    _userPoint = lottoRepo.getUserPoints();
     update();
   }
 }

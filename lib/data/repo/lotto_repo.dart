@@ -12,8 +12,6 @@ class LottoRepo {
   final Set<int> _lottoNumbers = <int>{};
   Set<int> get lottoNumbers => _lottoNumbers;
   List<String> lottoHistory = [];
-  int _historyLength = 0;
-  int get historyLength => _historyLength;
 
   void generateLottoNumbers() {
     _lottoNumbers.clear();
@@ -34,8 +32,9 @@ class LottoRepo {
     for (var element in lottoHistory) {
       lottoListHistory.add(LottoModel.fromJson(jsonDecode(element)));
     }
-    
+
     getHistoryLength();
+    getUserPoints();
     return lottoListHistory;
   }
 
@@ -52,11 +51,27 @@ class LottoRepo {
         AppConstants.LOTTO_HISTORY_LIST, lottoHistory);
   }
 
-  void getHistoryLength() {
+  int getHistoryLength() {
+    int historyLength = 0;
     if (sharedPreferences.containsKey(AppConstants.LOTTO_HISTORY_LIST)) {
       lottoHistory =
           sharedPreferences.getStringList(AppConstants.LOTTO_HISTORY_LIST)!;
-      _historyLength = lottoHistory.length;
+      historyLength = lottoHistory.length;
     }
+    return historyLength;
+  }
+
+  int getUserPoints() {
+    //loop through lotto history and add points
+    int userPoint = 0;
+    if (sharedPreferences.containsKey(AppConstants.LOTTO_HISTORY_LIST)) {
+      lottoHistory =
+          sharedPreferences.getStringList(AppConstants.LOTTO_HISTORY_LIST)!;
+    }
+    for (var element in lottoHistory) {
+      LottoModel lottoModel = LottoModel.fromJson(jsonDecode(element));
+      userPoint += lottoModel.point!;
+    }
+    return userPoint;
   }
 }

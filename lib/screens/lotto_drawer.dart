@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:lotto/controller/lotto_controller.dart';
 import 'package:lotto/screens/edit_page.dart';
 import 'package:lotto/screens/history_page.dart';
 import 'package:lotto/utils/constant.dart';
@@ -12,21 +14,30 @@ class LottoDrawer extends StatefulWidget {
 
 class _LottoDrawerState extends State<LottoDrawer> {
   @override
-  final padding = EdgeInsets.symmetric(horizontal: 20);
+  final padding = const EdgeInsets.symmetric(horizontal: 20);
+  @override
   Widget build(BuildContext context) {
     return Drawer(
       child: Container(
         child: ListView(
           padding: padding,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
-            headerWidget(text: "Tunmise", points: '10'),
-            SizedBox(
+            GetBuilder<LottoController>(
+              builder: (controller) {
+                return headerWidget(
+                    text: "Tunmise",
+                    points: controller.userPoint,
+                    games: controller.lottoHistoryLength
+                    );
+              },
+            ),
+            const SizedBox(
               height: 10,
             ),
-            Divider(
+            const Divider(
               thickness: 1,
             ),
             buildDrawerItems(
@@ -36,7 +47,7 @@ class _LottoDrawerState extends State<LottoDrawer> {
                 selectedItem(context, 0);
               },
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             buildDrawerItems(
@@ -57,8 +68,8 @@ class _LottoDrawerState extends State<LottoDrawer> {
     required IconData icon,
     VoidCallback? onClicked,
   }) {
-    final color = Colors.black;
-    final hoverColors = kMyBlueColor;
+    const color = Colors.black;
+    const hoverColors = kMyBlueColor;
     return ListTile(
       leading: Icon(
         icon,
@@ -74,13 +85,13 @@ class _LottoDrawerState extends State<LottoDrawer> {
     switch (i) {
       case 0:
         Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => EditPage()));
+            .push(MaterialPageRoute(builder: (context) => const EditPage()));
         break;
     }
     switch (i) {
       case 1:
         Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => HistoryPage()));
+            .push(MaterialPageRoute(builder: (context) => const HistoryPage()));
         break;
     }
   }
@@ -88,7 +99,8 @@ class _LottoDrawerState extends State<LottoDrawer> {
 
 Widget headerWidget({
   required String text,
-  required String points,
+  required int points,
+  required int games 
 }) {
   return Column(
     children: [
@@ -96,11 +108,18 @@ Widget headerWidget({
         text,
         style: kMyTextStyle,
       ),
-      SizedBox(
+      const SizedBox(
         height: 10,
       ),
       Text(
-        points,
+        "Points: " + points.toString(),
+        style: kMyTextStyle,
+      ),
+      const SizedBox(
+        height: 10,
+      ),
+      Text(
+        "Games Played: " + games.toString(),
         style: kMyTextStyle,
       )
     ],

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:lotto/controller/lotto_controller.dart';
 import 'package:lotto/screens/responsive_body/Desktop_body.dart';
 import 'package:lotto/screens/responsive_body/mobile_body.dart';
 import 'package:lotto/screens/responsive_body/responsive_layout.dart';
-import '../utils/constant.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
