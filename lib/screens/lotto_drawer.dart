@@ -30,8 +30,7 @@ class _LottoDrawerState extends State<LottoDrawer> {
                 return headerWidget(
                     text: "Tunmise",
                     points: controller.userPoint,
-                    games: controller.lottoHistoryLength
-                    );
+                    games: controller.lottoHistoryLength);
               },
             ),
             const SizedBox(
@@ -44,7 +43,15 @@ class _LottoDrawerState extends State<LottoDrawer> {
               text: 'Edit',
               icon: Icons.edit,
               onClicked: () {
-                selectedItem(context, 0);
+                // selectedItem(context, 0);
+                Get.bottomSheet(EditBottom(),
+                    backgroundColor: Colors.white,
+                    isDismissible: true,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(30),
+                      topLeft: Radius.circular(30),
+                    )));
               },
             ),
             const SizedBox(
@@ -57,6 +64,10 @@ class _LottoDrawerState extends State<LottoDrawer> {
                 selectedItem(context, 1);
               },
             ),
+            SizedBox(
+              height: 400,
+            ),
+            Expanded(child: Text('Made with ❤️ from Samson and Tunmise')),
           ],
         ),
       ),
@@ -82,12 +93,12 @@ class _LottoDrawerState extends State<LottoDrawer> {
   }
 
   void selectedItem(BuildContext context, int i) {
-    switch (i) {
-      case 0:
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => const EditPage()));
-        break;
-    }
+    // switch (i) {
+    //   case 0:
+    //     Navigator.of(context)
+    //         .push(MaterialPageRoute(builder: (context) => const EditBottom()));
+    //     break;
+    // }
     switch (i) {
       case 1:
         Navigator.of(context)
@@ -97,11 +108,8 @@ class _LottoDrawerState extends State<LottoDrawer> {
   }
 }
 
-Widget headerWidget({
-  required String text,
-  required int points,
-  required int games 
-}) {
+Widget headerWidget(
+    {required String text, required int points, required int games}) {
   return Column(
     children: [
       Text(

@@ -44,12 +44,12 @@ class _SplashScreenState extends State<SplashScreen> {
             height: 100,
             child: DefaultTextStyle(
               style: const TextStyle(
-                fontSize: 70,
+                fontSize: 60,
                 fontFamily: 'Pacifico',
                 color: Colors.black,
               ),
               child: AnimatedTextKit(animatedTexts: [
-                TyperAnimatedText('LOTTO', speed: Duration(milliseconds: 700)),
+                TyperAnimatedText('LOTTO', speed: Duration(milliseconds: 400)),
               ]
                   //       onTap: () {
                   // print("Tap Event");
