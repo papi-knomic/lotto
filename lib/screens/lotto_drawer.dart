@@ -67,7 +67,7 @@ class _LottoDrawerState extends State<LottoDrawer> {
             SizedBox(
               height: 400,
             ),
-            Expanded(child: Text('Made with ❤️ from Samson and Tunmise')),
+            Expanded(child: Text('Made with ❤️ from Samson and Tunmise.')),
           ],
         ),
       ),
