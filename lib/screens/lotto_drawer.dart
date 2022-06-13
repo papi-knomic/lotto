@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:lotto/controller/lotto_controller.dart';
 import 'package:lotto/screens/edit_page.dart';
 import 'package:lotto/screens/history_page.dart';
+import 'package:lotto/screens/theme.dart';
 import 'package:lotto/utils/constant.dart';
 
 class LottoDrawer extends StatefulWidget {
@@ -64,10 +65,26 @@ class _LottoDrawerState extends State<LottoDrawer> {
                 selectedItem(context, 1);
               },
             ),
-            SizedBox(
-              height: 400,
+            SizedBox(height: 10),
+            buildDrawerItems(
+              text: 'Theme',
+              icon: Icons.lightbulb_outline_rounded,
+              onClicked: () {
+                // selectedItem(context, 0);
+                Get.bottomSheet(ThemeBottom(),
+                    backgroundColor: Colors.white,
+                    isDismissible: true,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(30),
+                      topLeft: Radius.circular(30),
+                    )));
+              },
             ),
-            Expanded(child: Text('Made with ❤️ from Samson and Tunmise.')),
+            SizedBox(
+              height: 350,
+            ),
+            Text('Made with ❤️ by Samson and Tunmise.'),
           ],
         ),
       ),
