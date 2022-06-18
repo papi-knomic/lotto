@@ -80,7 +80,10 @@ class LottoController extends GetxController {
       _isPlayed = true;
       DateTime dateTime = DateTime.now();
       LottoModel lottoModel = LottoModel(
-          lottoNumbers: lottoNumbers, userNumbers: userNumbers, point: point, date: dateTime);
+          lottoNumbers: lottoNumbers,
+          userNumbers: userNumbers,
+          point: point,
+          date: dateTime);
       saveLottoModel(lottoModel);
       getUserPoint();
       getLottoHistoryLength();
@@ -126,6 +129,13 @@ class LottoController extends GetxController {
   //get user point
   void getUserPoint() {
     _userPoint = lottoRepo.getUserPoints();
+    update();
+  }
+
+  void resetLottoHistory() {
+    lottoRepo.resetLottoHistory();
+    getLottoHistory();
+    getLottoHistoryLength();
     update();
   }
 }

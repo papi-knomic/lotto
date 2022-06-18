@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lotto/controller/lotto_controller.dart';
+import 'package:lotto/controller/user_controller.dart';
 import 'package:lotto/screens/edit_page.dart';
 import 'package:lotto/screens/history_page.dart';
 import 'package:lotto/screens/theme.dart';
@@ -28,10 +29,12 @@ class _LottoDrawerState extends State<LottoDrawer> {
             ),
             GetBuilder<LottoController>(
               builder: (controller) {
-                return headerWidget(
-                    text: "Tunmise",
-                    points: controller.userPoint,
-                    games: controller.lottoHistoryLength);
+                return GetBuilder<UserController>(builder: (user) {
+                  return headerWidget(
+                      text: "Hi, " + user.userName,
+                      points: controller.userPoint,
+                      games: controller.lottoHistoryLength);
+                });
               },
             ),
             const SizedBox(
@@ -48,7 +51,7 @@ class _LottoDrawerState extends State<LottoDrawer> {
                 Get.bottomSheet(EditBottom(),
                     backgroundColor: Colors.white,
                     isDismissible: true,
-                    shape: RoundedRectangleBorder(
+                    shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.only(
                       topRight: Radius.circular(30),
                       topLeft: Radius.circular(30),
@@ -65,7 +68,7 @@ class _LottoDrawerState extends State<LottoDrawer> {
                 selectedItem(context, 1);
               },
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             buildDrawerItems(
               text: 'Theme',
               icon: Icons.lightbulb_outline_rounded,
@@ -74,17 +77,17 @@ class _LottoDrawerState extends State<LottoDrawer> {
                 Get.bottomSheet(ThemeBottom(),
                     backgroundColor: Colors.white,
                     isDismissible: true,
-                    shape: RoundedRectangleBorder(
+                    shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.only(
                       topRight: Radius.circular(30),
                       topLeft: Radius.circular(30),
                     )));
               },
             ),
-            SizedBox(
+            const SizedBox(
               height: 350,
             ),
-            Text('Made with ❤️ by Samson and Tunmise.'),
+            const Text('Made with ❤️ by Samson and Tunmise.'),
           ],
         ),
       ),

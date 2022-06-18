@@ -5,25 +5,18 @@ class UserController extends GetxController {
   final UserRepo userRepo;
 
   UserController({required this.userRepo});
-  bool _isUserNamed = false;
-  bool get isUserNamed => _isUserNamed;
 
-  void getIsUserNamed() {
-    _isUserNamed = userRepo.getIsUserNamed();
-    update();
-  }
-  
-  set isUserNamed(bool isUserNamed) {
-    _isUserNamed = isUserNamed;
-    userRepo.setIsUserNamed(isUserNamed);
-    update();
-  }
-
+  String _userName = '';
+  String get userName => _userName;
 
   void setUserName(String userName) {
+    _userName = userName;
     userRepo.setUserName(userName);
-    _isUserNamed = true;
     update();
   }
 
+  void getUserName() {
+    _userName = userRepo.getUserName();
+    update();
+  }
 }

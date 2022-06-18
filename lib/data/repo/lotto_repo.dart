@@ -74,4 +74,8 @@ class LottoRepo {
     }
     return userPoint;
   }
+
+  void resetLottoHistory() {
+    sharedPreferences.remove(AppConstants.LOTTO_HISTORY_LIST);
+  }
 }

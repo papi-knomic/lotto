@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lotto/controller/lotto_controller.dart';
+import 'package:lotto/controller/user_controller.dart';
 import 'package:lotto/helper/dependencies.dart' as dep;
 import 'package:lotto/screens/splash_screen.dart';
 import 'package:lotto/utils/themes.dart';
@@ -19,7 +20,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.find<LottoController>().getLottoNumbers();
     Get.find<LottoController>().getLottoHistory();
-    return GetMaterialApp(
+    Get.find<UserController>().getUserName();
+    return const GetMaterialApp(
       // theme: Themes.lightTheme,
       // darkTheme: Themes.darkTheme,
       home: SplashScreen(),
