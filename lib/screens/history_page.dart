@@ -20,6 +20,9 @@ class _HistoryPageState extends State<HistoryPage> {
 
     return Scaffold(
         appBar: AppBar(
+          title: Text('History'),
+          centerTitle: true,
+          titleTextStyle: kBoldTextStyle,
           backgroundColor: kMyBlueColor,
           elevation: 0,
           leading: const BackButton(),
@@ -32,40 +35,55 @@ class _HistoryPageState extends State<HistoryPage> {
                 child: GetBuilder<LottoController>(builder: (controller) {
                   return ElevatedButton(
                     onPressed: () {
-                      if (controller.lottoHistoryLength > 0) {
-                        controller.resetLottoHistory();
-                        Get.snackbar(
-                          'History',
-                          'History has been reset',
-                          backgroundColor: kMyBlueColor,
-                          colorText: Colors.white,
-                          snackPosition: SnackPosition.BOTTOM,
-                          duration: const Duration(seconds: 2),
-                          margin: const EdgeInsets.all(10),
-                          borderColor: kMyBlueColor,
-                          borderWidth: 1,
-                          icon: const Icon(
-                            Icons.check,
-                            color: Colors.white,
-                          ),
-                        );
-                      } else {
-                        Get.snackbar(
-                          'History',
-                          'History is empty',
-                          backgroundColor: kMyBlueColor,
-                          colorText: Colors.white,
-                          snackPosition: SnackPosition.BOTTOM,
-                          duration: const Duration(seconds: 2),
-                          margin: const EdgeInsets.all(10),
-                          borderColor: kMyBlueColor,
-                          borderWidth: 1,
-                          icon: const Icon(
-                            Icons.check,
-                            color: Colors.white,
-                          ),
-                        );
-                      }
+                      Get.defaultDialog(
+                        middleText: 'Do you want to reset history ?',
+                        backgroundColor: Colors.white,
+                        middleTextStyle: kMyTextStyle,
+                        textConfirm: 'Yes',
+                        textCancel: 'No',
+                        cancelTextColor: Colors.black,
+                        confirmTextColor: Colors.white,
+                        buttonColor: kMyBlueColor,
+                        onCancel: () {
+                          Get.back();
+                        },
+                        onConfirm: () {
+                          if (controller.lottoHistoryLength > 0) {
+                            controller.resetLottoHistory();
+                            Get.snackbar(
+                              'History',
+                              'History has been reset',
+                              backgroundColor: kMyBlueColor,
+                              colorText: Colors.white,
+                              snackPosition: SnackPosition.BOTTOM,
+                              duration: const Duration(seconds: 2),
+                              margin: const EdgeInsets.all(10),
+                              borderColor: kMyBlueColor,
+                              borderWidth: 1,
+                              icon: const Icon(
+                                Icons.check,
+                                color: Colors.white,
+                              ),
+                            );
+                          } else {
+                            Get.snackbar(
+                              'History',
+                              'History is empty',
+                              backgroundColor: kMyBlueColor,
+                              colorText: Colors.white,
+                              snackPosition: SnackPosition.BOTTOM,
+                              duration: const Duration(seconds: 2),
+                              margin: const EdgeInsets.all(10),
+                              borderColor: kMyBlueColor,
+                              borderWidth: 1,
+                              icon: const Icon(
+                                Icons.check,
+                                color: Colors.white,
+                              ),
+                            );
+                          }
+                        },
+                      );
                     },
                     child: const Text('Reset'),
                     style: ElevatedButton.styleFrom(
@@ -140,10 +158,13 @@ class _HistoryPageState extends State<HistoryPage> {
                 elevation: 4,
                 shadowColor: Colors.black54,
                 color: Colors.white,
-                child: Column(
-                  children: [
-                    Wrap(
+                child: ListTile(
+                    title: Wrap(
                       children: [
+                        Icon(
+                          Icons.circle,
+                          color: Colors.green,
+                        ),
                         for (int i = 0; i < 5; i++)
                           Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -157,11 +178,12 @@ class _HistoryPageState extends State<HistoryPage> {
                           ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Wrap(
+                    subtitle: Wrap(
                       children: [
+                        Icon(
+                          Icons.circle,
+                          color: Colors.red,
+                        ),
                         for (int i = 0; i < 5; i++)
                           Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -175,12 +197,16 @@ class _HistoryPageState extends State<HistoryPage> {
                           ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(element.point!.toString())
-                  ],
-                ),
+                    trailing: Text.rich(TextSpan(children: [
+                      TextSpan(
+                        text: 'Point: ',
+                        style: kMyTextStyle,
+                      ),
+                      TextSpan(
+                        text: element.point!.toString(),
+                        style: kMyTextStyle,
+                      ),
+                    ]))),
               ),
             ),
           );

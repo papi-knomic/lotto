@@ -5,10 +5,6 @@ import 'package:lotto/utils/constant.dart';
 
 Container EditBottom() {
   TextEditingController _controller = TextEditingController();
-  @override
-  void initState() {
-    _controller;
-  }
 
   return Container(
     height: 400,

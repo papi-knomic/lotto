@@ -26,6 +26,7 @@ class _MobileBodyState extends State<MobileBody> {
     int columnCount = 3;
     return SafeArea(
       child: Scaffold(
+          backgroundColor: Colors.white,
           key: _scaffoldKey,
           drawer: LottoDrawer(),
           body: GetBuilder<LottoController>(

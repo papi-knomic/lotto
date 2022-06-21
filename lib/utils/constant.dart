@@ -11,3 +11,8 @@ const kMyTextStyle = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.w700,
     color: Colors.black);
+const kBoldTextStyle = TextStyle(
+    fontFamily: 'JosefinSans',
+    fontSize: 30,
+    fontWeight: FontWeight.bold,
+    color: Colors.black);
